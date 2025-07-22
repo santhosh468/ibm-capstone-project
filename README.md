@@ -3,10 +3,15 @@
 A Streamlit web application that predicts employee salary classes (>50K or ≤50K) using machine learning. Includes career recommendations, industry comparisons, and personalized career roadmaps.
 
 ![Screenshot 1](images/ss1.png) 
-![Screenshot 2](images/ss2.png) 
-![Screenshot 3](images/ss3.png) 
-![Screenshot 4](images/ss4.png) 
+
+![Screenshot 2](images/ss2.png)
+
+![Screenshot 3](images/ss3.png)
+
+![Screenshot 4](images/ss4.png)
+
 ![Screenshot 5](images/ss5.png) 
+
 
 ## Features ✨
 
@@ -59,11 +64,16 @@ streamlit run app.py
 
 ```
 employee-salary-classifier/
-├── app.py                 # Main application script
-├── best_model.pkl         # Trained ML model
-├── requirements.txt       # Python dependencies
-├── README.md              # Project documentation
-└── demo.gif               # Application demo
+|-- app.py                 # Main application script
+|-- best_model.pkl         # Trained ML model
+|-- requirements.txt       # Python dependencies
+|-- README.md              # Project documentation
+`-- images/
+    |--ss1.png
+    |--ss2.png
+    |--ss3.png
+    |--ss4.png
+    `--ss5.png
 ```
 
 ## Customization ⚙️
