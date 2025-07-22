@@ -63,11 +63,11 @@ streamlit run app.py
 ## File Structure 🗂️
 
 ```
-employee-salary-classifier/
-|-- app.py                 # Main application script
-|-- best_model.pkl         # Trained ML model
-|-- requirements.txt       # Python dependencies
-|-- README.md              # Project documentation
+ibm-capstone-project/
+|-- app.py                           # Main application script
+|-- best_model.pkl                   # Trained ML model
+|-- employee_salary_prediction.py    # Prediction file
+|-- README.md                        # Project documentation
 `-- images/
     |--ss1.png
     |--ss2.png
