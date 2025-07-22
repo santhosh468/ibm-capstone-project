@@ -2,7 +2,11 @@
 
 A Streamlit web application that predicts employee salary classes (>50K or ≤50K) using machine learning. Includes career recommendations, industry comparisons, and personalized career roadmaps.
 
-![App Screenshot](demo.gif) <!-- Replace with actual screenshot/gif -->
+![Screenshot 1](images/ss1.png) 
+![Screenshot 2](images/ss2.png) 
+![Screenshot 3](images/ss3.png) 
+![Screenshot 4](images/ss4.png) 
+![Screenshot 5](images/ss5.png) 
 
 ## Features ✨
 
