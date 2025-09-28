@@ -8,7 +8,14 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 
 # Load the trained model and define expected features
-model = joblib.load("best_model.pkl")
+model = None
+model_load_error = None
+try:
+    model = joblib.load("best_model.pkl")
+except Exception as e:
+    # Don't raise on import — show a friendly error in the UI instead
+    model = None
+    model_load_error = str(e)
 expected_features = [
     'age', 'workclass', 'fnlwgt', 'educational-num', 
     'marital-status', 'occupation', 'relationship',
@@ -17,10 +24,18 @@ expected_features = [
 ]
 
 # Feature importance data
-feature_importance = pd.DataFrame({
-    'Feature': expected_features,
-    'Importance': model.feature_importances_
-}).sort_values('Importance', ascending=False)
+# Build a feature importance DataFrame only if the model exposes the attribute
+if model is not None and hasattr(model, 'feature_importances_'):
+    feature_importance = pd.DataFrame({
+        'Feature': expected_features,
+        'Importance': model.feature_importances_
+    }).sort_values('Importance', ascending=False)
+else:
+    # Fallback: zero importance so the app still loads
+    feature_importance = pd.DataFrame({
+        'Feature': expected_features,
+        'Importance': [0.0] * len(expected_features)
+    }).sort_values('Importance', ascending=False)
 
 st.set_page_config(page_title="Employee Salary Classification", page_icon="💼", layout="centered")
 
@@ -227,38 +242,6 @@ with col2:
         st.success("✅ Your working hours are in line with industry average")
 
 # Career timeline function
-
-def encode_categorical_features(df):
-    categorical_columns = ['workclass', 'marital-status', 'occupation', 
-                         'relationship', 'race', 'gender', 'native-country']
-    
-    encoders = {}
-    for column in categorical_columns:
-        encoders[column] = LabelEncoder()
-        # Define known categories for each feature
-        if column == 'workclass':
-            known_categories = ['Private', 'Self-emp', 'Gov', 'Others']
-        elif column == 'marital-status':
-            known_categories = ['Married', 'Single', 'Divorced', 'Separated']
-        elif column == 'occupation':
-            known_categories = ['Tech-support', 'Craft-repair', 'Other-service', 'Sales',
-                              'Exec-managerial', 'Prof-specialty', 'Handlers-cleaners',
-                              'Machine-op-inspct', 'Adm-clerical', 'Farming-fishing',
-                              'Transport-moving', 'Priv-house-serv', 'Protective-serv',
-                              'Armed-Forces']
-        elif column == 'relationship':
-            known_categories = ['Not-in-family', 'Husband', 'Wife', 'Own-child', 'Unmarried']
-        elif column == 'race':
-            known_categories = ['White', 'Black', 'Asian', 'Other']
-        elif column == 'gender':
-            known_categories = ['Male', 'Female']
-        elif column == 'native-country':
-            known_categories = ['United-States', 'Other']
-            
-        encoders[column].fit(known_categories)
-        df[column] = encoders[column].transform(df[column])
-    
-    return df
 
 # Add file uploader widget
 uploaded_file = st.file_uploader("Upload CSV file for batch predictions", type=['csv'])
